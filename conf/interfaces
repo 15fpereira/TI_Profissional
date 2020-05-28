@@ -1,0 +1,25 @@
+# Autor: Francisco Dias
+# Data de criação: 18/05/2020
+# Data de atualização: 18/05/2020
+# Versão: 0.01
+# Testado e homologado para a versão do Ubuntu Server 16.04 LTS x64
+# Kernel >= 4.4.x
+
+#Configuração do código das interfaces
+source /etc/network/interfaces.d/*
+
+#Configuração da interfaces de Loopback
+auto lo
+iface lo inet loopback
+
+# Configurações da interface de rede estática eth0
+auto eth0
+iface eth0 inet static
+address 192.168.1.10
+netmask 255.255.255.0
+network 192.168.1.0
+broadcast 192.168.1.255
+gateway 192.168.1.1
+dns-nameservers 192.168.1.10
+dns-search ti-pro.intra
+dns-domain ti-pro.intra

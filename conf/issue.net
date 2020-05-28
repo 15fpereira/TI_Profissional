@@ -1,0 +1,16 @@
+
+***************************************************************************
+###########################################################################
+##             Acesso ao Servidor Remoto do TI-PRO.INTRA                 ##
+###########################################################################
+***************************************************************************
+
+AVISO: O acesso não é permitido ao servidor: $SERVERS, passíveis de sanções
+por lei virgente LGPD, somente pessoas autorizada. Para segurança contra
+acesso não autorizado foi implementado uma regra no acesso via SSH. Consulte
+o protocolo de segurança desse projeto para mais detahes.
+
+***************************************************************************
+###########################################################################
+***************************************************************************
+

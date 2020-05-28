@@ -1,0 +1,23 @@
+#!/bin/sh
+# Autor: FRANCISCO DIAS
+# Data de criação: 18/05/2020
+# Data de atualização: 18/05/2020
+# Versão: 0.01
+# Testado e homologado para a versão do Ubuntu Server 16.04 LTS x64
+# Kernel >= 4.4.x
+
+# Opções dos parametros do Shell Script para Impressão do Arquivo em PDF
+# Parameters $1 = spool file (smbprn . . . )
+# $2 = user name
+# $3 = user home directory
+# $4 = print job name
+
+#Criação das variáveis: DATA e HORA, modificação do arquivo de saída
+
+DATA=`date +%d/%m/%Y`
+HORA=`date +%H:%M:%S`
+
+OUTDIR =/arquivos/ti-pro.intra/pdf
+  echo Convertendo $1 para “$4” for user $2 in $3 >> /var/log/cups/pdfprint.log
+  ps2pdf $1 “$OUTDIR/$4-$2-$DATA-$HORA.pdf”
+rm $1

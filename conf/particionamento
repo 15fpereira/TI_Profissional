@@ -1,0 +1,18 @@
+Recomendação de Memória RAM:	>= 2.0GB
+
+Nova tabela de Disco e Particionamento:
+
+Disco Sistema Operacional:	dc01ls-01		20GB	Discos configurados em RAID-1
+				dc01ls-02		20GB
+							
+Disco Arquivos			arquivos-01		10GB	Discos configurados em RAID-1
+				arquivos-02		10GB
+							
+Disco Backup			backup			15GB	Disco sem RAID
+
+Particionamento:		raiz "/"		9.0GB	RAID-1, LVM, EXT4
+				swap			2.0GB	RAID-1, LVM, EXT4
+				tmp			1.0GB	RAID-1, LVM, EXT4
+				var			8.0GB	RAID-1, LVM, EXT4
+				arquivos		10.0GB	RAID-1, LVM, EXT4
+				backup			15.0GB	LVM, EXT4

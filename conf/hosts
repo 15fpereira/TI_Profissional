@@ -1,0 +1,17 @@
+# Autor: Francisco Dias
+# Data de criação: 18/05/2020
+# Data de atualização: 18/05/2020
+# Versão: 0.01
+# Testado e homologado para a versão do Ubuntu Server 16.04 LTS x64
+# Kernel >= 4.4.x
+
+# Configuração das pesquisas de DNS local utilizando o arquivo hosts
+# Acrescentar o endereço IP + HOSTNAME do servidor
+127.0.0.1		localhost
+127.0.1.1		dc01ls
+192.168.1.10		dc01ls.ti-pro.intra dc01ls
+
+# Configurações de IPv6 não serão utilizadas nesse curso.
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters

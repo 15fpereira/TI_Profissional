@@ -1,0 +1,24 @@
+#!/bin/bash
+# Autor: Francisco Dias
+# Data de criação: 18/05/2020
+# Data de atualização: 18/05/2020
+# Versão: 0.01
+# Testado e homologado para a versão do Ubuntu Server 16.04 LTS x64
+# Kernel >= 4.4.x
+#
+# Criando as váriaveis de validação do diretório
+LOG="/var/log/samba/log.limpeza_publico"
+PUBLICO="/arquivos/ti-pro.intra/publico"
+cd $PUBLICO
+LOCAL="`pwd`"
+
+#Fazendo o teste lógico para a limpeza do diretório Público.
+if [ $PUBLICO == $LOCAL ]; then
+	echo -e "Fazendo a limpeza do diretório: $PUBLICO em: `date`" > $LOG
+	echo >> $LOG
+	rm -Rfv * >> $LOG
+	echo >> $LOG
+	echo -e "Pasta Publico limpada com sucesso!!!" >> $LOG
+else
+	echo -e "Diretório público inexistente, verificar as configurações da váriavél de ambiente, localização dos arquivos, etc" >> $LOG
+fi

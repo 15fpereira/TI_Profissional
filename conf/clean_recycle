@@ -1,0 +1,52 @@
+#!/bin/bash
+# Autor: Francisco Dias
+# Data de criação: 18/05/2020
+# Data de atualização: 18/05/2020
+# Versão: 0.01
+# Testado e homologado para a versão do Ubuntu Server 16.04 LTS x64
+# Kernel >= 4.4.x
+#
+# Criando as váriaveis de validação do diretório
+LOG="/var/log/samba/log.limpeza_lixeira"
+LIXEIRA_GESTAO="/arquivos/ti-pro.intra/lixeira/Lixeira_Gestao"
+LIXEIRA_PUBLICO="/arquivos/ti-pro.intra/lixeira/Lixeira_Publico"
+LIXEIRA_SISTEMA="/arquivos/ti-pro.intra/lixeira/Lixeira_Sistema"
+
+#Fazendo o teste lógico para a limpeza do diretório Lixeira Gestão.
+cd $LIXEIRA_GESTAO
+LOCAL_GESTAO="`pwd`"
+if [ $LIXEIRA_GESTAO == $LOCAL_GESTAO ]; then
+	echo -e "Fazendo a limpeza do diretório: $LIXEIRA_GESTAO em: `date`" > $LOG
+	echo >> $LOG
+		rm -Rfv * >> $LOG
+	echo >> $LOG
+	echo -e "Pasta Lixeira Gestão limpada com sucesso!!!" >> $LOG
+else
+	echo -e "Diretório lixeira gestão inexistente, verificar as configurações da váriavél de ambiente, localização dos arquivos, etc" >> $LOG
+fi
+
+#Fazendo o teste lógico para a limpeza do diretório Lixeira Publico.
+cd $LIXEIRA_PUBLICO
+LOCAL_PUBLICO="`pwd`"
+if [ $LIXEIRA_PUBLICO == $LOCAL_PUBLICO ]; then
+	echo -e "Fazendo a limpeza do diretório: $LIXEIRA_PUBLICO em: `date`" > $LOG
+	echo >> $LOG
+		rm -Rfv * >> $LOG
+	echo >> $LOG
+	echo -e "Pasta Lixeira Publico limpada com sucesso!!!" >> $LOG
+else
+	echo -e "Diretório lixeira publico inexistente, verificar as configurações da váriavél de ambiente, localização dos arquivos, etc" >> $LOG
+fi
+
+#Fazendo o teste lógico para a limpeza do diretório Lixeira Sistema.
+cd $LIXEIRA_SISTEMA
+LOCAL_SISTEMA="`pwd`"
+if [ $LIXEIRA_SISTEMA == $LOCAL_SISTEMA ]; then
+	echo -e "Fazendo a limpeza do diretório: $LIXEIRA_SISTEMA em: `date`" > $LOG
+	echo >> $LOG
+		rm -Rfv * >> $LOG
+	echo >> $LOG
+	echo -e "Pasta Lixeira Sistema limpada com sucesso!!!" >> $LOG
+else
+	echo -e "Diretório lixeira sistema inexistente, verificar as configurações da váriavél de ambiente, localização dos arquivos, etc" >> $LOG
+fi

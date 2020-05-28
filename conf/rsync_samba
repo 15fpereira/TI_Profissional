@@ -1,0 +1,20 @@
+#!/bin/bash
+# Autor: FRANCISCO DIAS
+# Data de criação: 18/05/2020
+# Data de atualização: 18/05/2020
+# Versão: 0.01
+# Testado e homologado para a versão do Ubuntu Server 16.04 LTS x64
+# Kernel >= 4.4.x
+#
+# Opções do Rsync
+# r = recursive
+# a = archive
+# v = verbose
+# z = compress
+# p = progress
+
+ORIGEM="/arquivos/ti-pro.intra/"
+DESTINO="/backup/ti-pro.intra/rsync"
+LOG="/var/log/samba/log.rsync_samba"
+
+rsync -Cravzp $ORIGEM $DESTINO > $LOG

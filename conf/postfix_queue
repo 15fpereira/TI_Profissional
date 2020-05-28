@@ -1,0 +1,20 @@
+# Autor: FRANCISCO DIAS
+# Data de criação: 18/05/2020
+# Data de atualização: 18/05/2020
+# Versão: 0.01
+# Testado e homologado para a versão do Ubuntu Server 16.04 LTS x64
+# Kernel >= 4.4.x
+
+#Criação das variáveis para o Postfix
+LOG=/var/log/log.postfix_queue
+
+#Limpandando os email do root
+echo > /var/mail/root
+
+#Removendo todas as mensagens da fila
+postsuper -d ALL >> $LOG
+
+#Removendo todos os e-mails na fila adiada
+postsuper -d ALL deferred >> $LOG
+
+echo -e "Fim da Limpeza dos E-mail do Postfix em: `date`" >> $LOG
