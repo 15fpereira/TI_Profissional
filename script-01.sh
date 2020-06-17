@@ -1,6 +1,7 @@
 #!/bin/bash
-# Autor: FRANCISCO DIAS
-# Data de criação: 18/05/2020
+# Autor: Profº Robson Vaamonde
+# Adaptado por: Francisco Dias
+# Data de criação: 26/09/2016
 # Data de atualização: 18/05/2020
 # Versão: 0.01
 # Testado e homologado para a versão do Ubuntu Server 16.04 LTS x64
