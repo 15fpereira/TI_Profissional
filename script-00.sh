@@ -1,5 +1,6 @@
 #!/bin/bash
-# Autor: FRANCISCO DIAS
+# Autor: Prof° Robson Vaamonde
+# Adaptado por: FRANCISCO DIAS
 # Data de criação: 18/05/2020
 # Data de atualização: 18/05/2020
 # Versão: 0.1
