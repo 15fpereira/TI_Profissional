@@ -83,7 +83,6 @@ DATAINICIAL=`date +%s`
 USUARIO=`id -u`
 UBUNTU=`lsb_release -rs`
 KERNEL=`uname -r | cut -d'.' -f1,2`
-
 if [ "$USUARIO" == "0" ]
 then
 	if [ "$UBUNTU" == "16.04" ]
@@ -180,8 +179,7 @@ then
 					 tail -n6 $LOG | head -n6
 					 echo
 					 echo -e "Servidor SAMBA 4 promovido como Controlador de Domínio com Sucesso!!!"
-					 echo -e "Pressione <Enter> para continuar com o script"
-					 read
+					 read -e "Pressione <Enter> para continuar com o script"
 					 sleep 2
 					 clear
 					 echo ============================================================ >> $LOG
@@ -189,46 +187,35 @@ then
 					 echo -e "Desabilitando a expiração da senha do usuário Administrator, aguarde..."
 					 #Desativando a expiração da senha do usuário administrator
 					 samba-tool user setexpiry administrator --noexpiry &>> $LOG
-					 echo -e "Senha desabilitada com sucesso!!!, pressione <Enter> continuando com o script"
-					 read
+					 read -e "Senha desabilitada com sucesso!!!, pressione <Enter> continuando com o script:"
 					 sleep 2
 					 clear
-					 
 					 echo -e "Editando o arquivo NAMED.CONF, aguarde..."
 					 echo -e "Acrescentar a linha: include "/var/lib/samba/private/named.conf" no final arquivo named.conf"
-					 echo -e "Pressione <Enter> para editar o arquivo"
+					 read -e "Pressione <Enter> para editar o arquivo"
 					 echo 
-					 read
-					 
 					 echo -e "Fazendo o backup do arquivo named.conf, aguarde..."
 					 #Fazendo o backup do arquivo de configuração named.conf
 					 mv -v /etc/bind/named.conf /etc/bind/named.conf.old >> $LOG
 					 echo -e "Backup feito com sucesso!!!, continuando o script..."
 					 sleep 2
 					 echo
-					 
 					 echo -e "Atualizando o arquivo named.conf, aguarde..."
 					 #Copiando o arquivo de configuração named.conf
 					 cp -v conf/named.conf /etc/bind/named.conf >> $LOG
 					 echo -e "Arquivo atualizado com sucesso!!!, continuando o script..."
 					 sleep 2
 					 echo
-					 
 					 #Editando o arquivo de configuração named.conf
 					 vim /etc/bind/named.conf +19
-					 
-					 echo -e "NAMED.CONF atualizado com sucesso!!!, pressione <Enter> para continuando com o script"
-					 read
+					 read -e "NAMED.CONF atualizado com sucesso!!!, pressione <Enter> para continuando com o script"
 					 sleep 2
 					 clear
 					 echo ============================================================ >> $LOG
-
 					 echo -e "Editando o arquivo NAMED.CONF.OPTIONS"
 					 echo -e "Acrescentar as linhas depois de: listen-on-v6 { any; };"
-					 echo -e "Pressione <Enter> para editar o arquivo"
+					 read -e "Pressione <Enter> para editar o arquivo"
 					 echo 
-					 read
-					 
 					 echo -e "Criando o diretório e arquivo de Estatísticas do Bind9 RNDC, aguarde..."
 					 #Criando o diretório para estatísticas do bind9 rndc
 					 mkdir -v /var/log/named >> $LOG
@@ -239,59 +226,47 @@ then
 					 echo -e "Diretório e arquivo criado com sucesso!!!, continuando o script..."
 					 sleep 2
 					 echo
-					 
 					 echo -e "Fazendo o backup do arquivo named.conf.options, aguarde..."
 					 #Fazendo o backup do arquivo de configuração named.conf.options
 					 mv -v /etc/bind/named.conf.options /etc/bind/named.conf.options.old >> $LOG
 					 echo -e "Backup feito com sucesso!!!, continuando o script..."
 					 sleep 2
 					 echo
-					 
 					 echo -e "Atualizando o arquivo named.conf.options, aguarde..."
 					 #Copiando o arquivo de configuração named.conf.options
 					 cp -v conf/named.conf.options /etc/bind/named.conf.options >> $LOG
 					 echo -e "Arquivo atualizado com sucesso!!!, continuando o script..."
 					 sleep 2
 					 echo
-					 
 					 #Editando o arquivo de configuração named.conf.options
 					 vim /etc/bind/named.conf.options
-					 
-					 echo -e "NAMED.CONF.OPTIONS atualizado com sucesso!!!, pressione <Enter> para continuando com o script"
-					 read
+					 read -e "NAMED.CONF.OPTIONS atualizado com sucesso!!!, pressione <Enter> para continuando com o script"
 					 sleep 2
 					 clear
 					 echo ============================================================ >> $LOG
-
 					 echo -e "Editando o arquivo NAMED.CONF.LOCAL"
 					 echo -e "Após a modificação do arquivo named.conf.local será gerado a chave novamente"
 					 echo -e "Será criado um Link Simbolico para o serviço do DHCP utilizar a mesma chave"
 					 echo -e "Acrescentar a linha: include "/etc/bind/rndc.key" no final do arquivo"
-					 echo -e "Pressione <Enter> para editar o arquivo"
+					 read -e "Pressione <Enter> para editar o arquivo"
 					 echo
-					 read
-					 
 					 echo -e "Fazendo o backup do arquivo named.conf.local, aguarde..."
 					 #Fazendo o backup do arquivo de configuração named.conf.local
 					 mv -v /etc/bind/named.conf.local /etc/bind/named.conf.local.old >> $LOG
 					 echo -e "Backup feito com sucesso!!!, continuando o script..."
 					 sleep 2
 					 echo
-					 
 					 echo -e "Atualizando o arquivo named.conf.local, aguarde..."
 					 #Copiando o arquivo de confguração named.conf.local
 					 cp -v conf/named.conf.local /etc/bind/named.conf.local >> $LOG
 					 echo -e "Arquivo atualizado com sucesso!!!, continuando o script..."
 					 sleep 2
 					 echo
-					 
 					 #Editando o arquivo de configuração named.conf.local
 					 vim /etc/bind/named.conf.local +15
 					 echo
-					 
 					 #Recurso de geração de chaves do Bind, recurso desativado em: 19/07/2016, falha na geração
 					 #rndc-confgen -a
-					 
 					 echo -e "Alterando as permissões do arquivo rndc.key, aguarde..."
 					 #Alterando as permissões de dono e grupo do arquivo de chaves rndc.key
 					 chown -v root:bind /etc/bind/rndc.key >> $LOG
@@ -304,37 +279,29 @@ then
 					 echo -e "Permissões alteradas com sucesso!!!, continuando o script..."
 					 sleep 2
 					 echo
-					 
-					 echo -e "NAMED.CONF.LOCAL atualizado com sucesso!!!, pressione <Enter> para continuando com o script"
-					 read
+					 read -e "NAMED.CONF.LOCAL atualizado com sucesso!!!, pressione <Enter> para continuando com o script"
 					 sleep 2
 					 clear
 					 echo ============================================================ >> $LOG
-
 					 echo -e "Editando o arquivo APPARMOR.D para permitir o BIND9 acessar os arquivos do SAMBA4"
 					 echo -e "Acrescentar as informações no final do arquivo"
-					 echo -e "Pressione <Enter> para editar o arquivo"
+					 read -e "Pressione <Enter> para editar o arquivo"
 					 echo 
-					 read
-					 
 					 echo -e "Fazendo o backup do arquivo usr.sbin.named, aguarde..."
 					 #Fazendo o backup do arquivo de configuração usr.sbin.named
 					 mv -v /etc/apparmor.d/local/usr.sbin.named /etc/apparmor.d/local/usr.sbin.named.old >> $LOG
 					 echo -e "Backup feito com sucesso!!!, continuando o script..."
 					 sleep 2
 					 echo
-					 
 					 echo -e "Atualizando o arquivo usr.sbin.named, aguarde..."
 					 #Copiando o arquivo de configuração do usr.sbi.named
 					 cp -v conf/usr.sbin.named /etc/apparmor.d/local/usr.sbin.named >> $LOG
 					 echo -e "Arquivo atualizado com sucesso!!!, continuando o script..."
 					 sleep 2
 					 echo
-					 
 					 #Editando o arquivo de configuração usr.sbi.named
 					 vim /etc/apparmor.d/local/usr.sbin.named
 					 echo
-					 
 					 echo -e "Alterando as permissões do arquivo dns.keytab e named.conf, aguarde..."
 					 #Alterando as permissões de dono e grupo do arquivo de chaves dns.keytab
 					 chown -v bind:bind /var/lib/samba/private/dns.keytab >> $LOG
@@ -345,97 +312,73 @@ then
 					 echo -e "Permissões alteradas com sucesso!!!, continuando o script..."
 					 sleep 2
 					 echo
-					 
 					 echo -e "APPARMOR.D atualizado com sucesso!!!, pressione <Enter> para continuando com o script"
 					 read
 					 sleep 2
 					 clear
 					 echo ============================================================ >> $LOG
-
 					 echo -e "Editando o arquivo SYSCTL.CONF para o servidor: `hostname`"
 					 echo -e "Acrescentar no final do arquivo a linha: fs.file-max=500000"
 					 echo -e "Aumentar o número de arquivos que o BIND9 vai gerenciar"
-					 echo -e "Pressione <Enter> para editar o arquivo"
-					 read
-					 
+					 read -e "Pressione <Enter> para editar o arquivo"
 					 echo -e "Fazendo o backup do arquivo sysctl.conf, aguarde..."
 					 #Fazendo o backup do arquivo de configuração sysctl.conf
 					 mv -v /etc/sysctl.conf /etc/sysctl.conf.old >> $LOG
 					 echo -e "Backup feito com sucesso!!!, continuando o script..."
 					 sleep 2
 					 echo
-					 
 					 echo -e "Atualizando o arquivo sysctl.conf, aguarde..."
 					 #Copiando o arquivo de configuração sysctl.conf
 					 cp -v conf/sysctl.conf /etc/sysctl.conf >> $LOG
 					 echo -e "Arquivo atualizado com sucesso!!!, continuando o script..."
 					 sleep 2
 					 echo
-					 
 					 #Editando o arquivo de configuração sysctl.conf
 					 vim /etc/sysctl.conf +73
-					 
-					 echo -e "SYSCTL.CONF atualizado com sucesso!!!, pressione <Enter> para continuando com o script!!!!"
-					 read
+					 read -e "SYSCTL.CONF atualizado com sucesso!!!, pressione <Enter> para continuando com o script!!!!:"
 					 sleep 2
 					 clear
 					 echo ============================================================ >> $LOG
-
-
 					 echo -e "Editando o arquivo LIMITS.CONF para o servidor: `hostname`"
 					 echo -e "Acrescentar no final do arquivo a linha: *		-	nofile		400000"
-					 echo -e "Pressione <Enter> para editar o arquivo"
-					 read
-					 
+					 read -e "Pressione <Enter> para editar o arquivo"
 					 echo -e "Fazendo o backup do arquivo limits.conf, aguarde..."
 					 #Fazendo o backup do arquivo de configuração limits.conf
 					 mv -v /etc/security/limits.conf /etc/security/limits.conf.old >> $LOG
 					 echo -e "Backup feito com sucesso!!!, continuando o script..."
 					 sleep 2
 					 echo
-					 
 					 echo -e "Atualizando o arquivo limits.conf, aguarde..."
 					 #Copiando o arquivo de configuração limits.conf
 					 cp -v conf/limits.conf /etc/security/limits.conf >>$LOG
 					 echo -e "Arquivo atualizado com sucesso!!!, continuando o script..."
 					 sleep 2
 					 echo
-					 
 					 #Editando o arquivo de configuração limits.conf
 					 vim /etc/security/limits.conf +70
-
-					 echo -e "LIMITS.CONF atualizado com sucesso!!!, pressione <Enter> para continuando com o script!!!!"
-					 read
+					 read -e "LIMITS.CONF atualizado com sucesso!!!, pressione <Enter> para continuando com o script!!!!"
 					 sleep 2
 					 clear
 					 echo ============================================================ >> $LOG
-
 					 echo -e "Editando o arquivo NAMED.CONF do SAMBA 4"
 					 echo -e "Verificar as linhas referente a versão do BIND instalado"
 					 echo
 					 echo -e "Versão do BIND instalado: `named -v`"
 					 echo
-					 echo -e "Pressione <Enter> para editar o arquivo"
+					 read -e "Pressione <Enter> para editar o arquivo"
 					 echo 
-					 read
-					 
 					 echo -e "Fazendo o backup do arquivo named.conf, aguarde..."
 					 cp -v /var/lib/samba/private/named.conf /var/lib/samba/private/named.conf.old &>> $LOG
 					 echo -e "Backup feito com sucesso!!!, continuando o script..."
 					 sleep 2
 					 echo
-					 
 					 #Editando o arquivo de configurando do SAMBA 4 named.conf
 					 vim /var/lib/samba/private/named.conf +20
-
-					 echo -e "NAMED.CONF do SAMBA4 atualizado com sucesso!!!, pressione <Enter> para continuando com o script"
-					 read
+					 read -e "NAMED.CONF do SAMBA4 atualizado com sucesso!!!, pressione <Enter> para continuando com o script"
 					 sleep 2
 					 clear
-					 
 					 echo -e "Fim do Script-06.sh em: `date`" >> $LOG
 					 echo ============================================================ >> $LOG
-
 					 echo
 					 echo -e "Configuração do SAMBA 4 como Controlador de Domínio feito com Sucesso!!!!!"
 					 echo
@@ -451,16 +394,13 @@ then
 					 reboot
 					 else
 						 echo -e "Versão do Kernel: $KERNEL não homologada para esse script, versão: >= 4.4 "
-						 echo -e "Pressione <Enter> para finalizar o script"
-					 read
+						 read -e "Pressione <Enter> para finalizar o script:"
 			fi
 		else
 			 echo -e "Distribuição GNU/Linux: `lsb_release -is` não homologada para esse script, versão: $UBUNTU"
-			 echo -e "Pressione <Enter> para finalizar o script"
-			read
+			 read -e "Pressione <Enter> para finalizar o script:"
 		fi
 else
 	 echo -e "Usuário não é ROOT, execute o comando com a opção: sudo -i <Enter> depois digite a senha do usuário `whoami`"
-	 echo -e "Pressione <Enter> para finalizar o script"
-	read
+	 read -e "Pressione <Enter> para finalizar o script:"
 fi
